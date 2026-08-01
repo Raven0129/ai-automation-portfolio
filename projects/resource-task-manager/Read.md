@@ -1,162 +1,276 @@
 # Resource & Task Manager (RTM)
 
-> A rule-based **workforce allocation engine** (Excel VBA) that automates monthly operational resource planning — matching qualified analysts to tasks under real-world capability, priority, and coverage constraints.
+> **Status:** Production Prototype *(Sanitized Portfolio Version)*  
+> **Role:** Solution Architect • Process Designer • Excel VBA Developer  
+> **Technologies:** Excel VBA • Microsoft Excel • Rule-Based Optimization • Workflow Automation
 
-> **Portfolio note:** All task names, capability codes, analyst names, thresholds, and metrics below are **placeholders**. No proprietary logic or real operational data is included.
+A rule-based **workforce allocation engine** built in Excel VBA that automates monthly operational resource planning by matching qualified analysts to work based on capability, priority, capacity, and business constraints.
 
----
-
-## Executive Summary
-
-RTM replaces a slow, manual, error-prone monthly resource-planning process with a deterministic engine that allocates work the way an experienced operations manager would — fairly, sustainably, and in line with business priorities. It reads an analyst roster, a task catalog, and a capability matrix, then produces a fully auditable allocation plus a calendar-based schedule for daily recurring duties. Given the same inputs, it produces the same result every time.
+> **Portfolio Note:** All analyst names, task names, capability codes, thresholds, metrics, and business terminology have been generalized. This case study demonstrates the engineering approach while protecting confidential operational information.
 
 ---
 
-## Business Context
+# Executive Summary
 
-The engine operates in an analyst-operations setting where a population of analysts, each certified for a different mix of specialized capabilities, must cover a monthly catalog of tasks. Work is governed by capability certification, priority tiers, exposure limits, self-approval rights, and daily coverage obligations. Planning is a recurring monthly exercise repeated across a large analyst population.
+The **Resource & Task Manager (RTM)** replaces a slow, manual, and error-prone monthly planning process with a deterministic allocation engine capable of producing consistent, auditable, and balanced workforce plans.
 
----
+Rather than relying on manual judgement and spreadsheets, RTM evaluates analyst qualifications, task priorities, workload capacity, exposure limits, scheduling constraints, and operational business rules to automatically generate monthly allocations and recurring schedules.
 
-## Business Problem
-
-Manual monthly planning had three chronic failures:
-
-- **Inconsistency** — outcomes depended on who did the planning and in what order.
-- **Low auditability** — it was hard to explain *why* a given analyst got a given task, or to prove coverage was met.
-- **Hidden daily gaps** — a plan could look "100% allocated" for the month while still breaching daily coverage floors on individual days.
-
-The organization needed allocations that were qualified, balanced, priority-aware, and provably complete — without hours of manual effort.
+Given the same inputs, the engine always produces the same output—making workforce planning transparent, repeatable, and easy to audit.
 
 ---
 
-## Solution Overview
+# Business Context
 
-RTM models allocation as a constrained optimization problem rather than a naive assignment loop. Each decision weighs capability match, remaining capacity, task priority, exposure reserves, and overall balance simultaneously. It honors planner overrides (manual locks), fills specialist pools first, distributes remaining work fairly, applies self-approval offsets, and emits validation output that surfaces every gap.
+The solution was designed for an analyst-driven operational environment where hundreds of recurring tasks must be distributed across a team of specialists with different certifications, capabilities, and approval rights.
+
+Every planning cycle must satisfy multiple operational constraints simultaneously, including:
+
+- Capability certification
+- Business priority
+- Remaining analyst capacity
+- Daily operational coverage
+- Self-approval permissions
+- Exposure balancing
+- Manual planner overrides
+
+Monthly planning is performed repeatedly and directly impacts operational stability, making consistency and auditability critical.
 
 ---
 
-## Architecture
+# Business Problem
 
-Four input sheets drive the engine; several output sheets capture results and warnings.
+The existing planning process suffered from several recurring operational challenges:
+
+- **Inconsistent decisions** — allocation quality depended heavily on the individual planner.
+- **Limited auditability** — explaining why a specific analyst received a specific task required manual investigation.
+- **Hidden scheduling risks** — a plan could appear fully allocated while still violating daily operational coverage requirements.
+- **High manual effort** — planners spent hours balancing workloads while validating business constraints.
+
+The organization required a repeatable planning process capable of generating qualified, balanced, and fully explainable allocations without extensive manual intervention.
+
+---
+
+# Solution Overview
+
+RTM approaches workforce planning as a **constraint-based optimization problem** rather than a simple assignment routine.
+
+Instead of assigning tasks sequentially, every allocation considers multiple operational factors simultaneously, including:
+
+- Analyst capability
+- Task priority
+- Remaining capacity
+- Exposure reserves
+- Scheduling constraints
+- Planner overrides
+- Self-approval rights
+
+The result is an allocation engine that produces consistent decisions while remaining transparent and fully auditable.
+
+---
+
+# Solution Architecture
 
 ```mermaid
 flowchart LR
-    A[Analyst_Resource] --> E[RTM Engine]
-    T[Task_List] --> E
-    C[Capability_Matrix] --> E
-    D[Calendar_Setup] --> E
-    E --> O[Assignment_Output]
-    E --> S[Assignment_Summary]
-    E --> V[Validation_Check]
-    E --> K[Scheduler_Calendar]
+    A[Analyst Resource] --> E[RTM Allocation Engine]
+    T[Task Catalog] --> E
+    C[Capability Matrix] --> E
+    D[Calendar Configuration] --> E
+
+    E --> O[Assignment Output]
+    E --> S[Assignment Summary]
+    E --> V[Validation Report]
+    E --> K[Recurring Schedule]
 ```
 
-**Input sheets**
+## Input Data
 
-| Sheet | Purpose |
-|-------|---------|
-| `Analyst_Resource` | Roster: available hours, priority group, exposure reserve %, manual locks, exclusions |
-| `Task_List` | Catalog: required capability, monthly hours, priority rank, per-analyst caps, approval-offset rules |
-| `Analyst_Capability_Matrix` | Certification grid: capabilities and self-approval rights per analyst |
-| `Calendar_Setup` | Working-day flags for the recurring schedule |
+| Worksheet | Purpose |
+|-----------|---------|
+| `Analyst_Resource` | Analyst roster, available capacity, manual assignments, exclusions, exposure settings |
+| `Task_List` | Task catalog, required capabilities, priorities, allocation rules |
+| `Analyst_Capability_Matrix` | Certification matrix and approval permissions |
+| `Calendar_Setup` | Working-day configuration used by the scheduling engine |
 
-**Output sheets**
+## Generated Outputs
 
-| Sheet | Purpose |
-|-------|---------|
-| `Assignment_Output` | Row-level record of every allocation |
-| `Assignment_Summary` | Aggregated hours per analyst per task |
-| `Validation_Check` | Warnings: unassigned hours, mismatches, uncovered days |
-| `Scheduler_Calendar` | Day-by-day recurring-duty schedule |
-
-**Capability model (placeholder):** capabilities are generic — **Capability A / B / C**, each with an *analysis* and *approval* variant plus a self-approval flag. The engine reads column positions, not hard-coded names, so any taxonomy drops in.
+| Worksheet | Purpose |
+|-----------|---------|
+| `Assignment_Output` | Detailed allocation results |
+| `Assignment_Summary` | Aggregated allocation statistics |
+| `Validation_Check` | Constraint violations and planning warnings |
+| `Scheduler_Calendar` | Daily recurring assignment schedule |
 
 ---
 
-## Key Features
+# Key Features
 
-- **Capability-gated assignment** — analysts receive only work they are certified for.
-- **Priority-tier allocation** — specialist/priority pools are drained before the general pool.
-- **Round-robin balancing** — work spreads across analysts in fixed increments to avoid mono-loading.
-- **Exposure reserves** — a configurable % of each analyst's hours is held back and released only when needed.
-- **Self-approval offsets** — related approval workload is auto-reduced when an analyst can approve their own work.
-- **Manual locks** — planners pin specific analysts to tasks; honored before auto-allocation.
-- **Recurring schedule generation** — calendar-based coverage with per-day requirements, per-analyst daily caps, and alternate-day rotation.
-- **Validation & audit output** — every gap and mismatch is surfaced, not silently absorbed.
-
----
-
-## Technology Stack
-
-- **Excel VBA** — implementation environment
-- **Excel worksheets** — data model, configuration, and reporting layer
-- **Mermaid** — architecture diagram (renders natively on GitHub)
+- Capability-based task allocation
+- Priority-aware workforce planning
+- Round-robin workload balancing
+- Configurable exposure reserve management
+- Automatic self-approval workload adjustment
+- Manual assignment lock support
+- Calendar-based recurring scheduling
+- Automated validation and audit reporting
 
 ---
 
-## Implementation Highlights
+# Technology Stack
 
-- **Analyst-centric fill:** priority analysts are drained across *all* eligible tasks first, rather than filling tasks one at a time — a deliberate redesign from the original task-centric loop.
-- **Order-independent lookups:** tasks are resolved by name, not row position, after in-place sorting was found to silently scramble related-task references.
-- **Multi-pass reserve release:** a first pass respects exposure reserves; later passes release them only if work remains, keeping balance without stranding hours.
-- **Deterministic randomness:** the *only* randomness is analyst ordering within a tier — bounded, and it never changes *who is eligible*, preserving reproducibility.
-
----
-
-## Business Impact
-
-> *Metrics below are illustrative placeholders — replace with your measured results.*
-
-- **Planning time:** reduced from *[X hours]* of manual work to a single macro run.
-- **Consistency:** identical inputs now yield identical, explainable allocations.
-- **Auditability:** every assigned hour is traceable to an output row; every coverage gap is flagged automatically.
-- **Coverage integrity:** daily floors are validated independently of monthly totals, catching gaps that aggregate views hide.
+| Technology | Purpose |
+|------------|---------|
+| Excel VBA | Allocation engine implementation |
+| Microsoft Excel | Data model, configuration, and reporting |
+| Mermaid | Architecture documentation |
+| Rule-Based Optimization | Workforce allocation logic |
 
 ---
 
-## Challenges & Lessons Learned
+# Engineering Decisions
 
-- **Monthly totals hide daily gaps.** The core insight: 100% monthly allocation can coexist with daily coverage breaches. "Hours" obscured that some duties are *daily minimums*, not monthly budgets — this reframed the whole scheduling model.
-- **Independent eligibility gates interact.** Stacking capability, specialization, and self-approval gates could combine into zero-eligible-analyst states that were hard to debug without enumerating gates systematically.
-- **Sorting is a hidden dependency.** In-place sorting of source data broke position-based references; switching to name-based lookups fixed a whole class of silent failures.
-- **Additive beats rewrite.** Preserving prior fixes explicitly across versions kept the engine auditable and prevented regressions.
+Several design decisions significantly improved both maintainability and allocation quality.
 
----
+### Analyst-Centric Allocation
 
-## Future Improvements
-
-- [ ] Formalize non-deferrable daily floors as first-class objects (**Tier 0**).
-- [ ] Capacity-netting mode: reserve daily floors upfront, allocate the remainder.
-- [ ] Optional full daily-schedule-per-analyst build.
-- [ ] Escalation signals when a daily floor slips.
+Instead of filling tasks one at a time, the engine prioritizes analyst utilization across all eligible work, resulting in a more balanced distribution.
 
 ---
 
-## Getting Started
+### Order-Independent Lookups
+
+Task relationships are resolved using names rather than worksheet positions, preventing failures caused by spreadsheet sorting.
+
+---
+
+### Multi-Pass Capacity Release
+
+Exposure reserves are protected during the initial allocation and only released if additional capacity is required, improving workload balance.
+
+---
+
+### Deterministic Allocation
+
+The engine intentionally minimizes randomness.
+
+The only randomized component is analyst ordering within the same priority tier, ensuring that repeated executions with identical inputs produce consistent results.
+
+---
+
+# Business Impact
+
+> **Note:** The figures below are representative placeholders.
+
+## Operational Benefits
+
+- Reduced monthly planning effort from several hours to a single macro execution
+- Improved consistency across planning cycles
+- Increased workload fairness across analysts
+- Simplified operational planning
+- Improved auditability and traceability
+
+## Technical Benefits
+
+- Deterministic allocation engine
+- Rule-driven decision making
+- Configurable business rules
+- Automated validation framework
+- Transparent scheduling logic
+
+---
+
+# Challenges & Lessons Learned
+
+Several engineering discoveries fundamentally changed the design of the engine.
+
+### Monthly Capacity Does Not Guarantee Daily Coverage
+
+One of the biggest insights was recognizing that monthly allocation percentages can hide operational gaps at the daily level.
+
+This shifted the scheduling model from purely capacity-based planning toward operational coverage validation.
+
+---
+
+### Business Rules Interact
+
+Capability restrictions, specialization requirements, approval permissions, and scheduling constraints can combine to eliminate every eligible analyst for a task.
+
+Explicit validation became essential.
+
+---
+
+### Spreadsheet Ordering Should Never Be Trusted
+
+Early implementations relied on worksheet positions.
+
+Moving to name-based lookups eliminated an entire class of difficult-to-debug issues.
+
+---
+
+### Preserve Working Logic
+
+Rather than rewriting existing functionality, new features were added incrementally.
+
+This approach improved stability, reduced regressions, and made the evolution of the engine easier to understand.
+
+---
+
+# Future Improvements
+
+- Formalize non-deferrable daily coverage as Tier 0 constraints
+- Capacity netting before allocation
+- Full analyst daily schedule generation
+- Automated operational escalation reporting
+
+---
+
+# My Role
+
+I designed and developed the Resource & Task Manager from concept through implementation.
+
+My responsibilities included:
+
+- Requirements analysis
+- Business rule design
+- Solution architecture
+- Excel VBA development
+- Allocation algorithm design
+- Validation framework
+- Testing and debugging
+- Documentation
+- Continuous enhancement based on operational feedback
+
+---
+
+# Getting Started
 
 1. Open the workbook and enable macros.
-2. Populate the four input sheets (sample placeholder data included).
-3. Run the entry-point macro:
-   ```vba
-   Run_RTM_Assignment
-   ```
-4. Review `Assignment_Summary`, `Validation_Check`, and `Scheduler_Calendar`.
+2. Populate the four input worksheets.
+3. Execute:
 
-**Configuration constants** (illustrative placeholders — tune to your operation):
+```vba
+Run_RTM_Assignment
+```
 
-| Constant | Default | Meaning |
-|----------|---------|---------|
-| `CHUNK_SIZE` | `8` | Hours per task, per analyst, per round-robin cycle |
-| Daily cap (per analyst) | `2` | Max recurring-duty hours one analyst takes per day |
-| Daily requirement | `32` | Total recurring-duty hours to cover per working day |
+4. Review the generated allocation reports and validation outputs.
 
 ---
 
-## License
+# Configuration
 
-MIT — see [`LICENSE`](LICENSE).
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `CHUNK_SIZE` | `8` | Hours assigned per allocation cycle |
+| Daily Analyst Cap | `2` | Maximum recurring hours per analyst per day |
+| Daily Coverage Target | `32` | Required recurring coverage hours per working day |
 
 ---
 
-*Built to demonstrate rule-based optimization, constraint modeling, and auditable automation design. Sample data is fictional.*
+# License
+
+MIT License
+
+---
+
+> *This project demonstrates how operational knowledge, business rules, and software engineering can be combined to transform a manual planning process into a deterministic, scalable, and auditable workforce allocation system.*
