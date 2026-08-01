@@ -1,4 +1,4 @@
-# Analyst KPI Automation System
+# KPI Reporting Automation Platform
 
 > **Status:** Production System *(Sanitized Portfolio Version)*  
 > **Role:** Solution Architect • Excel Automation Developer • Business Intelligence Designer  
