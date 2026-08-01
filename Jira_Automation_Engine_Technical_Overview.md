@@ -1,4 +1,4 @@
-# Jira Automation System — Python Replacement for Native Automation Rules
+projects/jira-automation-engine.md
 
 Python-based replacement for native Jira Automation rules on a high-volume project. Native Jira Automation caps branch execution at ~1,000 issues per branch, but this project's parent tickets can have thousands of subtasks — so ticket classification, assignee assignment, and daily reset/recycle are handled here instead, using `nextPageToken`-paginated REST calls with no upper bound.
 
