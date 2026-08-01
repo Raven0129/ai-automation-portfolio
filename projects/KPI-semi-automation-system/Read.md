@@ -1,69 +1,87 @@
-# KPI Reporting Automation Platform
+# Operational KPI Reporting Platform
 
-> **Status:** Production System *(Sanitized Portfolio Version)*  
-> **Role:** Solution Architect • Excel Automation Developer • Business Intelligence Designer  
-> **Technologies:** Microsoft Excel • VBA • Power Query • PivotTables • OneDrive • SharePoint
+> **Status:** Production System *(Sanitized Portfolio Case Study)*  
+> **Role:** Solution Architect • Business Intelligence Designer • Excel Automation Developer  
+> **Technologies:** Microsoft Excel • VBA • Power Query • Business Intelligence • OneDrive • SharePoint
 
-A semi-automated KPI reporting platform that transforms lightweight daily analyst activity into consolidated monthly operational reporting.
+A semi-automated reporting platform that transforms distributed operational activity into standardized, refreshable KPI reporting through workflow automation, data consolidation, and business intelligence.
 
-The solution replaces manual KPI consolidation with an Excel-native automation pipeline that integrates daily task logging, automated error synchronization, Power Query ETL, and refreshable reporting—reducing recurring monthly reporting effort from hours to minutes.
+The platform replaces repetitive monthly report preparation with a structured reporting pipeline that captures operational activity, validates quality information, consolidates distributed datasets, and produces standardized KPI reports with minimal manual effort.
 
-> **Portfolio Note:** Company names, storage locations, workbook names, worksheets, KPI formulas, and operational identifiers have been generalized to protect confidential information while preserving the engineering approach.
+> **Portfolio Note:** This case study focuses on the business problem, solution architecture, engineering decisions, and operational outcomes. Proprietary workbook structures, business formulas, reporting definitions, datasets, and organization-specific implementation details have been intentionally generalized or omitted.
 
 ---
 
 # Executive Summary
 
-Monthly KPI reporting for analyst teams was previously a manual and time-consuming process owned by team leads.
+Monthly KPI reporting previously required significant manual effort from operational leads to consolidate analyst activity, reconcile quality information, validate results, and prepare standardized reports.
 
-This solution redesigns the reporting workflow into a layered automation pipeline where analysts capture operational activity daily, VBA automates error integration, Power Query consolidates distributed workbooks, and PivotTables generate standardized KPI reports.
+To improve consistency and reduce recurring administrative effort, I designed an Excel-native reporting platform that automates data consolidation, standardizes KPI calculations, and simplifies monthly reporting into a repeatable refresh-and-validation workflow.
 
-Rather than manually assembling reports every month, team leads simply validate and refresh the reporting pipeline.
+Rather than manually assembling reports, operational leads focus on validating results and interpreting performance data.
 
-The result is a repeatable, auditable, and scalable KPI reporting system requiring only minimal manual effort.
+The result is a scalable reporting process that improves consistency, transparency, and operational efficiency.
 
 ---
 
 # Business Context
 
-The solution supports an operational analyst team where individual performance is measured using throughput, quality, productivity, and time allocation metrics.
+The platform supports an operational environment where analyst performance is measured through multiple productivity, quality, and utilization indicators.
 
-Each analyst maintains an individual KPI workbook while approvers record operational quality issues independently.
+Performance information originates from distributed operational activities performed throughout the month and must be consolidated into a standardized reporting framework.
 
-Every month, team leads are responsible for consolidating all analyst activity into a single performance report using standardized KPI definitions maintained within a central reference workbook.
+The reporting process requires:
 
-The reporting process depends on multiple distributed files stored within shared cloud storage and requires consistent KPI calculations across the entire team.
+- Consistent KPI calculations
+- Reliable quality tracking
+- Standardized reporting outputs
+- Centralized reporting governance
+- Minimal recurring administrative effort
+
+As operational teams grew, maintaining reporting quality while reducing manual effort became increasingly important.
 
 ---
 
 # Business Problem
 
-The previous reporting process presented several recurring operational challenges.
+The previous reporting process introduced several operational challenges.
 
-- **High Manual Effort** — Team leads spent several hours every month consolidating dozens of analyst workbooks.
-- **Fragmented Error Tracking** — Operational quality errors existed separately from KPI reporting, requiring manual reconciliation.
-- **Inconsistent Reporting** — Manually assembled reports introduced inconsistencies and increased the likelihood of reporting errors.
-- **Limited Scalability** — As the team expanded, monthly consolidation became increasingly difficult to maintain.
+### High Administrative Overhead
 
-The organization required a standardized reporting process capable of producing consistent KPI reports with minimal manual effort while remaining easy to validate and audit.
+Operational leads spent several hours every month collecting, validating, and consolidating reporting data.
+
+### Fragmented Information
+
+Operational activity and quality information existed across multiple sources, requiring manual reconciliation before reporting could begin.
+
+### Reporting Inconsistency
+
+Manual report preparation increased the likelihood of inconsistent calculations and reporting discrepancies.
+
+### Limited Scalability
+
+As the number of analysts increased, the reporting process became progressively more difficult to maintain without additional administrative effort.
+
+The organization required a reporting solution capable of producing consistent, auditable, and scalable KPI reports while minimizing manual intervention.
 
 ---
 
 # Solution Overview
 
-The KPI Automation System follows a three-layer architecture that distributes work efficiently across the reporting process.
+The reporting platform follows a layered architecture that separates operational data capture, validation, consolidation, and reporting.
 
-### 1. Capture Layer
+Rather than relying on a single workbook or manual reporting process, each layer performs a dedicated responsibility while contributing to a centralized reporting workflow.
 
-Analysts record completed operational activities within standardized KPI workbooks, requiring only a few minutes of daily effort.
+Core capabilities include:
 
-### 2. Enrichment Layer
+- Operational activity capture
+- Quality information integration
+- Automated data consolidation
+- Standardized KPI calculations
+- Refreshable reporting
+- Centralized reporting outputs
 
-A VBA-powered Error Master workbook consolidates quality logs from multiple approvers and automatically distributes validated errors into the appropriate analyst KPI files.
-
-### 3. Reporting Layer
-
-Power Query combines every analyst workbook directly from a shared folder, performs data preparation, and loads a consolidated dataset used by PivotTables to generate standardized monthly KPI reports.
+The platform intentionally minimizes daily administrative effort while enabling repeatable monthly reporting.
 
 ---
 
@@ -72,48 +90,47 @@ Power Query combines every analyst workbook directly from a shared folder, perfo
 ```mermaid
 flowchart TD
 
-A[Analyst KPI Workbooks] --> PQ
+A[Operational Activity]
 
-E[Approver Error Logs] --> M[Error Master VBA]
+A --> B[Validation Layer]
 
-M --> A
+B --> C[Data Consolidation Layer]
 
-R[Reference Workbook] --> A
+C --> D[Business Intelligence Layer]
 
-PQ[Power Query]
+D --> E[Standardized KPI Reports]
 
-PQ --> C[Data Cleaning]
+F[Reporting Configuration]
 
-C --> P[PivotTable KPI Report]
-
-P --> L[Linked Reference Sheet]
-
-L --> O[Published Monthly Report]
+F --> C
+F --> D
 ```
 
-## Core Components
+---
+
+# Solution Components
 
 | Component | Responsibility |
 |-----------|----------------|
-| Analyst KPI Workbook | Daily operational task logging |
-| Error Master Workbook | Automated error consolidation using VBA |
-| Reference Workbook | KPI definitions and operational configuration |
-| Power Query | Consolidation and ETL |
-| PivotTables | KPI reporting |
-| Linked Reference Sheet | Publishing-ready reporting output |
+| Activity Capture Layer | Collects operational activity throughout the reporting period |
+| Validation Layer | Consolidates and validates operational quality information |
+| Reporting Configuration | Maintains KPI definitions and reporting configuration |
+| Data Consolidation Layer | Combines distributed operational data into a unified reporting dataset |
+| Business Intelligence Layer | Calculates standardized KPIs and prepares reporting outputs |
+| Reporting Layer | Produces refreshable operational reports |
 
 ---
 
 # Key Features
 
-- Folder-based Power Query consolidation
-- Refreshable monthly reporting
-- Automated VBA error integration
-- Calculated KPI metrics
-- Self-updating reference sheets
-- Standardized reporting templates
-- Built-in data validation
-- Shared cloud-based reporting workflow
+- Automated reporting workflow
+- Centralized KPI calculations
+- Refreshable reporting architecture
+- Distributed data consolidation
+- Standardized reporting outputs
+- Built-in validation support
+- Scalable reporting process
+- Operational transparency
 
 ---
 
@@ -122,161 +139,154 @@ L --> O[Published Monthly Report]
 | Technology | Purpose |
 |------------|---------|
 | Microsoft Excel | Reporting platform |
-| VBA | Automation and data synchronization |
-| Power Query | Data extraction, transformation, and consolidation |
-| PivotTables | KPI reporting |
-| OneDrive / SharePoint | Shared data storage |
+| VBA | Reporting automation |
+| Power Query | Data consolidation and transformation |
+| PivotTables | Business intelligence reporting |
+| OneDrive / SharePoint | Shared operational storage |
 
 ---
 
 # Engineering Decisions
 
-Several architectural decisions significantly improved reliability, maintainability, and long-term usability.
+Several architectural decisions significantly improved maintainability, scalability, and long-term adoption.
 
-### Refresh Instead of Rebuild
+### Layered Reporting Architecture
 
-Rather than manually recreating reports every month, the reporting pipeline refreshes an existing Power Query model.
+The reporting process was intentionally divided into independent layers responsible for data capture, validation, consolidation, and reporting.
 
-This dramatically reduces recurring operational effort.
-
----
-
-### Folder-Based Consolidation
-
-Power Query combines analyst workbooks directly from a shared folder.
-
-Adding or removing analysts requires no reporting redesign.
+Separating responsibilities simplified maintenance while reducing coupling between reporting activities.
 
 ---
 
-### Automated Error Synchronization
+### Refresh-Based Reporting
 
-Instead of manually copying quality errors into KPI files, a VBA automation distributes validated error records directly into each analyst workbook.
+Rather than rebuilding reports each month, the platform refreshes an existing reporting model using updated operational data.
+
+This dramatically reduces recurring reporting effort while maintaining reporting consistency.
 
 ---
 
-### Table-Based References
+### Centralized Data Consolidation
 
-The reporting layer links data using Excel Table names instead of worksheet ranges.
+Distributed operational information is consolidated through a centralized processing layer, allowing reporting to scale as team size and reporting volume increase.
 
-This prevents broken formulas when datasets grow or worksheet structures change.
+---
+
+### Stable Data Modeling
+
+Structured data relationships replace manually maintained worksheet references wherever possible.
+
+This improves long-term maintainability as reporting requirements evolve.
 
 ---
 
 ### Adoption-First Design
 
-Daily analyst logging intentionally requires only a few minutes.
+The reporting workflow was intentionally designed to minimize daily user effort.
 
-Reducing user effort significantly improved long-term adoption and reporting consistency.
+Keeping operational data entry lightweight significantly improved adoption while increasing reporting accuracy.
 
 ---
 
 # Business Impact
 
-> **Figures below represent illustrative outcomes and should be replaced with measured operational metrics.**
+> **Representative outcomes shown below. Replace with measured production metrics where appropriate.**
 
 ## Operational Benefits
 
-- Reduced monthly KPI consolidation effort from several hours to a simple refresh process
-- Standardized reporting across the entire analyst team
-- Reduced manual reconciliation work
-- Improved reporting consistency and auditability
-- Simplified monthly reporting operations
+- Reduced recurring monthly reporting effort
+- Standardized KPI reporting across operational teams
+- Improved reporting consistency
+- Simplified operational reporting processes
+- Increased transparency and auditability
 
 ## Technical Benefits
 
-- Automated Excel-native ETL pipeline
-- Folder-based data ingestion
+- Automated reporting pipeline
 - Refreshable reporting architecture
 - Centralized KPI calculations
-- Automated error synchronization
-- Standardized reporting templates
+- Scalable data consolidation
+- Improved reporting maintainability
+- Reduced manual reconciliation
 
 ---
 
 # Challenges & Lessons Learned
 
-Several practical engineering lessons shaped the final solution.
+Developing reporting automation involves more than automating spreadsheets.
 
-### Data Quality Determines Report Quality
+Several lessons significantly influenced the final solution.
 
-Power Query can only consolidate reliable source data.
+### Reporting Quality Depends on Data Quality
 
-Validation before refresh became a mandatory operational step.
+Reliable reporting begins with reliable operational data.
 
----
-
-### Automation Still Requires Validation
-
-Although VBA automated error synchronization, manual validation remained necessary to detect duplicate or inconsistent records.
-
-Automation improves efficiency but should not eliminate quality assurance.
+Validation became an essential part of the reporting workflow rather than a final review step.
 
 ---
 
-### Table References Scale Better
+### Automation Supports — Not Replaces — Governance
 
-Range-based Excel references became increasingly fragile as datasets expanded.
+Automation reduced repetitive work but did not eliminate the need for operational validation.
 
-Migrating to table-name references significantly improved maintainability.
+Human oversight remains essential for maintaining reporting quality.
 
 ---
 
-### User Adoption Matters
+### Design for Growth
 
-A technically perfect reporting system provides little value if users avoid it.
+Reporting solutions should anticipate organizational growth.
 
-Keeping daily analyst effort intentionally lightweight proved critical for long-term adoption.
+Designing for scalability early reduced future maintenance while simplifying onboarding as the team expanded.
+
+---
+
+### User Experience Determines Adoption
+
+Even highly capable reporting platforms provide limited value if they increase operational workload.
+
+Prioritizing simplicity and usability significantly improved long-term adoption.
 
 ---
 
 # Future Improvements
 
 - Scheduled report refresh
-- Automated duplicate detection
-- KPI validation rules
-- Power BI reporting layer
+- Automated validation rules
+- Duplicate detection
+- Interactive Power BI reporting
 - Automated report distribution
+- Trend and forecasting capabilities
 
 ---
 
 # My Role
 
-I designed and developed the KPI Automation System from concept through operational deployment.
+I designed and developed the Operational KPI Reporting Platform from concept through operational deployment.
 
 My responsibilities included:
 
-- Requirements gathering
+- Business requirements analysis
 - KPI framework design
-- Excel solution architecture
-- VBA automation development
-- Power Query ETL design
-- Reporting model development
-- Data validation framework
-- Testing and debugging
+- Solution architecture
+- Excel automation development
+- Reporting model design
+- Data consolidation strategy
+- Validation framework
+- Testing and quality assurance
 - Documentation
 - User rollout and continuous enhancement
 
 ---
 
-# Operational Workflow
+# Repository Purpose
 
-1. Analysts record operational activities within their KPI workbook.
-2. The Error Master workbook consolidates quality logs and distributes validated errors.
-3. Individual KPI workbooks are refreshed.
-4. Power Query consolidates every analyst workbook.
-5. Data validation and cleaning are performed.
-6. PivotTables generate the monthly KPI report.
-7. The linked reporting sheet is published to shared storage.
+This repository is part of my professional engineering portfolio.
 
-After initial setup, the monthly reporting process becomes a simple **Refresh → Validate → Publish** workflow.
+The documentation focuses on business challenges, reporting architecture, engineering decisions, and operational improvements rather than implementation details.
+
+Proprietary workbook structures, business formulas, operational datasets, and organization-specific reporting logic have been intentionally omitted.
 
 ---
 
-# License
-
-MIT License
-
----
-
-> *This project demonstrates how thoughtful process design, Excel automation, and lightweight ETL architecture can transform a repetitive manual reporting process into a scalable, auditable, and operationally sustainable KPI reporting system.*
+> *This project demonstrates how thoughtful reporting architecture, business intelligence, and workflow automation can transform repetitive operational reporting into a scalable, auditable, and sustainable decision-support platform.*
