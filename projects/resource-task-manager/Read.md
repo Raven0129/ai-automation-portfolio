@@ -1,119 +1,135 @@
-# Resource & Task Manager (RTM)
+# Workforce Planning & Allocation Engine (RTM)
 
-> **Status:** Production Prototype *(Sanitized Portfolio Version)*  
+> **Status:** Production Prototype *(Sanitized Portfolio Case Study)*  
 > **Role:** Solution Architect • Process Designer • Excel VBA Developer  
-> **Technologies:** Excel VBA • Microsoft Excel • Rule-Based Optimization • Workflow Automation
+> **Technologies:** Microsoft Excel • Excel VBA • Rule-Based Optimization • Decision Automation
 
-A rule-based **workforce allocation engine** built in Excel VBA that automates monthly operational resource planning by matching qualified analysts to work based on capability, priority, capacity, and business constraints.
+A rule-based workforce planning platform that automates monthly operational resource allocation by matching qualified analysts to work based on capability, business priority, available capacity, and operational constraints.
 
-> **Portfolio Note:** All analyst names, task names, capability codes, thresholds, metrics, and business terminology have been generalized. This case study demonstrates the engineering approach while protecting confidential operational information.
+The platform replaces a manual planning process with a deterministic decision engine capable of generating consistent, auditable, and balanced workforce plans while supporting recurring operational scheduling.
+
+> **Portfolio Note:** This case study focuses on the business challenge, solution architecture, engineering decisions, and operational outcomes. Analyst names, task definitions, business rules, operational thresholds, datasets, and implementation details have been intentionally generalized to protect confidential information.
 
 ---
 
 # Executive Summary
 
-The **Resource & Task Manager (RTM)** replaces a slow, manual, and error-prone monthly planning process with a deterministic allocation engine capable of producing consistent, auditable, and balanced workforce plans.
+Monthly workforce planning previously relied on manual decision making, requiring planners to balance analyst capability, workload capacity, business priorities, and scheduling constraints across a large operational team.
 
-Rather than relying on manual judgement and spreadsheets, RTM evaluates analyst qualifications, task priorities, workload capacity, exposure limits, scheduling constraints, and operational business rules to automatically generate monthly allocations and recurring schedules.
+To improve consistency, transparency, and scalability, I designed a rule-based allocation platform that evaluates multiple planning constraints simultaneously and produces deterministic workforce assignments.
 
-Given the same inputs, the engine always produces the same output—making workforce planning transparent, repeatable, and easy to audit.
+Rather than relying on individual judgement, the platform generates repeatable planning outcomes that are easier to validate, explain, and maintain as operational complexity grows.
+
+The result is a workforce planning process that is more balanced, auditable, and operationally sustainable.
 
 ---
 
 # Business Context
 
-The solution was designed for an analyst-driven operational environment where hundreds of recurring tasks must be distributed across a team of specialists with different certifications, capabilities, and approval rights.
+The platform supports an analyst-driven operational environment where recurring work must be distributed across specialists possessing different certifications, capabilities, approval permissions, and workload availability.
 
-Every planning cycle must satisfy multiple operational constraints simultaneously, including:
+Each monthly planning cycle must balance numerous operational objectives simultaneously, including:
 
-- Capability certification
+- Workforce capability
 - Business priority
-- Remaining analyst capacity
-- Daily operational coverage
-- Self-approval permissions
-- Exposure balancing
-- Manual planner overrides
+- Available capacity
+- Operational coverage
+- Approval eligibility
+- Workload fairness
+- Planning constraints
 
-Monthly planning is performed repeatedly and directly impacts operational stability, making consistency and auditability critical.
+As operational demand increased, maintaining consistency and transparency through manual planning became increasingly difficult.
 
 ---
 
 # Business Problem
 
-The existing planning process suffered from several recurring operational challenges:
+The existing planning process introduced several recurring operational challenges.
 
-- **Inconsistent decisions** — allocation quality depended heavily on the individual planner.
-- **Limited auditability** — explaining why a specific analyst received a specific task required manual investigation.
-- **Hidden scheduling risks** — a plan could appear fully allocated while still violating daily operational coverage requirements.
-- **High manual effort** — planners spent hours balancing workloads while validating business constraints.
+### Inconsistent Planning Decisions
 
-The organization required a repeatable planning process capable of generating qualified, balanced, and fully explainable allocations without extensive manual intervention.
+Allocation quality depended heavily on the planner's individual judgement, resulting in inconsistent outcomes between planning cycles.
+
+### Limited Transparency
+
+Understanding why a specific analyst received a particular workload required significant manual investigation.
+
+### Hidden Operational Risk
+
+Monthly capacity appeared balanced while daily operational coverage requirements could still remain unmet.
+
+### High Administrative Effort
+
+Planners spent considerable time balancing workloads while validating numerous operational constraints.
+
+The organization required a planning solution capable of producing consistent, explainable, and scalable workforce allocations while reducing recurring administrative effort.
 
 ---
 
 # Solution Overview
 
-RTM approaches workforce planning as a **constraint-based optimization problem** rather than a simple assignment routine.
+The Workforce Planning & Allocation Engine approaches workforce planning as a **constraint-based optimization problem** rather than a sequential assignment exercise.
 
-Instead of assigning tasks sequentially, every allocation considers multiple operational factors simultaneously, including:
+Each allocation decision considers multiple operational factors simultaneously, including workforce capability, capacity, business priorities, scheduling requirements, workload balancing, and organizational constraints.
 
-- Analyst capability
-- Task priority
-- Remaining capacity
-- Exposure reserves
-- Scheduling constraints
-- Planner overrides
-- Self-approval rights
-
-The result is an allocation engine that produces consistent decisions while remaining transparent and fully auditable.
+Rather than optimizing only for utilization, the platform balances operational fairness, business priorities, and long-term sustainability while producing fully auditable planning results.
 
 ---
 
 # Solution Architecture
 
 ```mermaid
-flowchart LR
-    A[Analyst Resource] --> E[RTM Allocation Engine]
-    T[Task Catalog] --> E
-    C[Capability Matrix] --> E
-    D[Calendar Configuration] --> E
+flowchart TD
 
-    E --> O[Assignment Output]
-    E --> S[Assignment Summary]
-    E --> V[Validation Report]
-    E --> K[Recurring Schedule]
+A[Workforce Information]
+
+B[Operational Demand]
+
+C[Capability Framework]
+
+D[Planning Constraints]
+
+A --> E[Allocation Engine]
+B --> E
+C --> E
+D --> E
+
+E --> F[Workforce Allocation]
+
+F --> G[Validation & Analysis]
+
+G --> H[Operational Schedule]
+
+H --> I[Planning Reports]
 ```
 
-## Input Data
+---
 
-| Worksheet | Purpose |
-|-----------|---------|
-| `Analyst_Resource` | Analyst roster, available capacity, manual assignments, exclusions, exposure settings |
-| `Task_List` | Task catalog, required capabilities, priorities, allocation rules |
-| `Analyst_Capability_Matrix` | Certification matrix and approval permissions |
-| `Calendar_Setup` | Working-day configuration used by the scheduling engine |
+# Solution Components
 
-## Generated Outputs
-
-| Worksheet | Purpose |
-|-----------|---------|
-| `Assignment_Output` | Detailed allocation results |
-| `Assignment_Summary` | Aggregated allocation statistics |
-| `Validation_Check` | Constraint violations and planning warnings |
-| `Scheduler_Calendar` | Daily recurring assignment schedule |
+| Component | Responsibility |
+|-----------|----------------|
+| Workforce Registry | Maintains workforce availability, capacity, and planning constraints |
+| Operational Demand | Defines work requiring allocation |
+| Capability Framework | Defines workforce qualifications and eligibility |
+| Allocation Engine | Applies optimization rules to generate workforce assignments |
+| Validation Layer | Verifies planning completeness and operational constraints |
+| Scheduling Layer | Produces recurring operational schedules |
+| Reporting Layer | Generates allocation summaries and planning outputs |
 
 ---
 
 # Key Features
 
-- Capability-based task allocation
-- Priority-aware workforce planning
-- Round-robin workload balancing
-- Configurable exposure reserve management
-- Automatic self-approval workload adjustment
-- Manual assignment lock support
-- Calendar-based recurring scheduling
-- Automated validation and audit reporting
+- Constraint-based workforce allocation
+- Capability-aware planning
+- Priority-driven workload distribution
+- Balanced resource utilization
+- Operational scheduling
+- Automated validation
+- Deterministic planning outcomes
+- Transparent allocation logic
+- Auditable planning outputs
 
 ---
 
@@ -121,156 +137,158 @@ flowchart LR
 
 | Technology | Purpose |
 |------------|---------|
-| Excel VBA | Allocation engine implementation |
-| Microsoft Excel | Data model, configuration, and reporting |
-| Mermaid | Architecture documentation |
+| Microsoft Excel | Planning platform |
+| Excel VBA | Decision automation engine |
 | Rule-Based Optimization | Workforce allocation logic |
+| Mermaid | Solution architecture documentation |
 
 ---
 
 # Engineering Decisions
 
-Several design decisions significantly improved both maintainability and allocation quality.
+Several architectural decisions significantly improved allocation quality, maintainability, and long-term scalability.
 
-### Analyst-Centric Allocation
+### Constraint-Based Decision Making
 
-Instead of filling tasks one at a time, the engine prioritizes analyst utilization across all eligible work, resulting in a more balanced distribution.
+Rather than assigning work sequentially, the platform evaluates multiple planning constraints simultaneously before determining the most appropriate allocation.
 
----
-
-### Order-Independent Lookups
-
-Task relationships are resolved using names rather than worksheet positions, preventing failures caused by spreadsheet sorting.
+This produces more balanced and explainable planning outcomes.
 
 ---
 
-### Multi-Pass Capacity Release
+### Stable Business Relationships
 
-Exposure reserves are protected during the initial allocation and only released if additional capacity is required, improving workload balance.
+The planning model relies on persistent business relationships rather than physical spreadsheet structure.
+
+This improves reliability as planning data evolves over time.
 
 ---
 
-### Deterministic Allocation
+### Progressive Capacity Optimization
 
-The engine intentionally minimizes randomness.
+Capacity constraints are intentionally relaxed in controlled stages rather than all at once.
 
-The only randomized component is analyst ordering within the same priority tier, ensuring that repeated executions with identical inputs produce consistent results.
+This preserves workload fairness while maximizing successful allocation.
+
+---
+
+### Deterministic Planning
+
+Given identical planning inputs, the platform always produces the same allocation.
+
+Predictable outcomes improve auditability, simplify validation, and increase confidence in the planning process.
+
+---
+
+### Operational Transparency
+
+Validation and reporting were designed as core components rather than post-processing activities.
+
+Every planning cycle produces outputs that support review, auditing, and operational decision making.
 
 ---
 
 # Business Impact
 
-> **Note:** The figures below are representative placeholders.
+> **Representative outcomes shown below. Replace with measured production metrics where appropriate.**
 
 ## Operational Benefits
 
-- Reduced monthly planning effort from several hours to a single macro execution
-- Improved consistency across planning cycles
-- Increased workload fairness across analysts
+- Reduced recurring monthly planning effort
+- Improved allocation consistency across planning cycles
+- Increased workload fairness
 - Simplified operational planning
-- Improved auditability and traceability
+- Improved transparency and auditability
 
 ## Technical Benefits
 
-- Deterministic allocation engine
-- Rule-driven decision making
-- Configurable business rules
-- Automated validation framework
-- Transparent scheduling logic
+- Deterministic decision engine
+- Constraint-based optimization
+- Centralized planning logic
+- Automated validation
+- Scalable workforce allocation
+- Transparent scheduling process
 
 ---
 
 # Challenges & Lessons Learned
 
-Several engineering discoveries fundamentally changed the design of the engine.
+Designing optimization systems requires understanding operational behaviour—not simply automating existing processes.
+
+Several engineering discoveries significantly influenced the final platform.
 
 ### Monthly Capacity Does Not Guarantee Daily Coverage
 
-One of the biggest insights was recognizing that monthly allocation percentages can hide operational gaps at the daily level.
+One of the most important discoveries was recognizing that balanced monthly allocations can still produce operational gaps at the daily level.
 
-This shifted the scheduling model from purely capacity-based planning toward operational coverage validation.
+This fundamentally changed the planning model by introducing explicit operational coverage validation.
 
 ---
 
 ### Business Rules Interact
 
-Capability restrictions, specialization requirements, approval permissions, and scheduling constraints can combine to eliminate every eligible analyst for a task.
+Capability requirements, scheduling constraints, approval permissions, and workload balancing frequently interact in unexpected ways.
 
-Explicit validation became essential.
-
----
-
-### Spreadsheet Ordering Should Never Be Trusted
-
-Early implementations relied on worksheet positions.
-
-Moving to name-based lookups eliminated an entire class of difficult-to-debug issues.
+Comprehensive validation became essential for identifying scenarios where multiple constraints eliminated every feasible allocation.
 
 ---
 
-### Preserve Working Logic
+### Design for Change
 
-Rather than rewriting existing functionality, new features were added incrementally.
+Operational planning rules evolve continuously.
 
-This approach improved stability, reduced regressions, and made the evolution of the engine easier to understand.
+Separating business concepts from implementation improved maintainability while reducing future redesign effort.
+
+---
+
+### Optimization Requires Explainability
+
+Producing an allocation is only part of the problem.
+
+Operational users must also understand *why* decisions were made.
+
+Transparency proved just as important as optimization quality.
 
 ---
 
 # Future Improvements
 
-- Formalize non-deferrable daily coverage as Tier 0 constraints
-- Capacity netting before allocation
-- Full analyst daily schedule generation
-- Automated operational escalation reporting
+- Predictive workload forecasting
+- Dynamic capacity planning
+- Advanced optimization strategies
+- Interactive planning dashboards
+- Scenario simulation
+- AI-assisted planning recommendations
 
 ---
 
 # My Role
 
-I designed and developed the Resource & Task Manager from concept through implementation.
+I designed and developed the Workforce Planning & Allocation Engine from concept through operational implementation.
 
 My responsibilities included:
 
-- Requirements analysis
-- Business rule design
+- Business requirements analysis
+- Operational process analysis
 - Solution architecture
+- Rule-based optimization design
 - Excel VBA development
-- Allocation algorithm design
+- Planning model design
 - Validation framework
-- Testing and debugging
+- Testing and quality assurance
 - Documentation
 - Continuous enhancement based on operational feedback
 
 ---
 
-# Getting Started
+# Repository Purpose
 
-1. Open the workbook and enable macros.
-2. Populate the four input worksheets.
-3. Execute:
+This repository is part of my professional engineering portfolio.
 
-```vba
-Run_RTM_Assignment
-```
+The documentation focuses on workforce optimization strategy, solution architecture, engineering decisions, and operational outcomes rather than implementation details.
 
-4. Review the generated allocation reports and validation outputs.
+Proprietary planning rules, business thresholds, operational datasets, spreadsheet structures, and organization-specific implementation have been intentionally generalized or omitted.
 
 ---
 
-# Configuration
-
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| `CHUNK_SIZE` | `8` | Hours assigned per allocation cycle |
-| Daily Analyst Cap | `2` | Maximum recurring hours per analyst per day |
-| Daily Coverage Target | `32` | Required recurring coverage hours per working day |
-
----
-
-# License
-
-MIT License
-
----
-
-> *This project demonstrates how operational knowledge, business rules, and software engineering can be combined to transform a manual planning process into a deterministic, scalable, and auditable workforce allocation system.*
+> *This project demonstrates how operational expertise, constraint-based optimization, and automation engineering can be combined to transform workforce planning into a deterministic, transparent, and scalable decision-support platform.*
